@@ -1,0 +1,50 @@
+{% extends "base.html" %} {% block title %}Search results{% endblock title %}
+
+<div class="container">
+    <h5>Search Results for {{query}}</h5>
+</div>
+{% block content %}
+  <div class="container my-5">
+    <div class="row">
+        {% for item in results %}
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <img src="{{item.image}}" class="card-img-top" alt="{{item.title}}">
+            <div class="card-body">
+              <h5 class="card-title">{{item.title}}
+              </h5>
+              <p class="card-text">{{item.description | truncatewords:20}}</p>
+  
+              <!-- Like button and count -->
+             <!-- Like & Comment Section -->
+             <div class="d-flex align-items-center justify-content-between">
+              
+                <!-- Like Button -->
+                <div>
+                  <button class="btn btn-outline-danger btn-sm me-2 like-btn" data-post-id="">
+                    <i class="fa fa-heart"></i> Like
+                  </button>
+                  <span class="like-count">{{item.likes}}</span> Likes
+                </div>
+  
+                <!-- Comment Count -->
+                <div>
+                  <i class="fa fa-comment text-primary"></i>
+                  <span class="comment-count">item.comments.count</span> Comments
+                </div>
+  
+              </div>
+  
+  
+              <!-- Read more link -->
+              <a href="{% url 'detail' item.pk %}" class="btn btn-primary mt-2">Read more</a>
+            </div>
+          </div>
+        </div>
+
+        {%empty%}
+         <h5> No results found for {{query}} </h5>
+        {% endfor %}
+    </div>
+  </div>
+{% endblock  %}
